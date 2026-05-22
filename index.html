@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agency HQ Victoria | Luxury Rental Properties</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --gold-dark: #8B6914;
+    --near-black: #0D0D0D;
+    --charcoal: #1A1A1A;
+    --mid: #2E2E2E;
+    --soft: #F5F2EC;
+    --white: #FDFCFA;
+    --muted: #888580;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--near-black);
+    color: var(--white);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,169,110,0.15);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600; letter-spacing: 0.06em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--white); font-weight: 300; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--white); text-decoration: none;
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+    opacity: 0.8; transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-cta {
+    background: transparent; border: 1px solid var(--gold);
+    color: var(--gold); padding: 0.55rem 1.4rem;
+    font-family: 'Montserrat', sans-serif; font-size: 0.65rem;
+    letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--near-black); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; position: relative;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 5rem;
+    background: linear-gradient(135deg, #0D0D0D 0%, #1A1410 60%, #0D0D0D 100%);
+    overflow: hidden;
+  }
+  .hero-bg-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image:
+      linear-gradient(var(--gold) 1px, transparent 1px),
+      linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-accent {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 45%;
+    background: linear-gradient(135deg, transparent 30%, rgba(201,169,110,0.06) 100%);
+    border-left: 1px solid rgba(201,169,110,0.1);
+  }
+  .hero-badge {
+    display: inline-block; border: 1px solid rgba(201,169,110,0.4);
+    color: var(--gold); font-size: 0.6rem; letter-spacing: 0.22em;
+    text-transform: uppercase; padding: 0.4rem 1rem; margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.1;
+    max-width: 700px; margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: 0.8rem; letter-spacing: 0.08em; color: var(--muted);
+    max-width: 440px; line-height: 1.9; margin-bottom: 3rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-actions { display: flex; gap: 1.2rem; animation: fadeUp 0.8s 0.3s ease both; }
+  .btn-primary {
+    background: var(--gold); color: var(--near-black);
+    border: none; padding: 1rem 2.2rem;
+    font-family: 'Montserrat', sans-serif; font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600;
+    cursor: pointer; transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 1px solid rgba(255,255,255,0.25); padding: 1rem 2.2rem;
+    font-family: 'Montserrat', sans-serif; font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats {
+    position: absolute; bottom: 4rem; right: 4rem;
+    display: flex; gap: 3rem;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .stat { text-align: right; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; font-weight: 300; color: var(--gold); line-height: 1;
+  }
+  .stat-label { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+  /* SECTION BASE */
+  section { padding: 7rem 4rem; }
+  .section-tag {
+    font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .divider {
+    width: 50px; height: 1px; background: var(--gold);
+    margin: 1.5rem 0 3rem;
+  }
+
+  /* PROPERTIES */
+  .properties { background: var(--charcoal); }
+  .prop-filter {
+    display: flex; gap: 0.5rem; margin-bottom: 3rem; flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: transparent; border: 1px solid rgba(201,169,110,0.3);
+    color: var(--muted); padding: 0.5rem 1.2rem;
+    font-family: 'Montserrat', sans-serif; font-size: 0.65rem;
+    letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--gold); color: var(--near-black);
+    border-color: var(--gold);
+  }
+  .prop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5px; }
+  .prop-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    background: var(--mid);
+    transition: transform 0.3s;
+  }
+  .prop-card:hover { transform: translateY(-4px); }
+  .prop-img {
+    width: 100%; height: 220px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .prop-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7) 100%);
+  }
+  .prop-tag {
+    position: absolute; top: 1rem; left: 1rem; z-index: 2;
+    background: var(--gold); color: var(--near-black);
+    font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.3rem 0.7rem; font-weight: 600;
+  }
+  .prop-body { padding: 1.5rem; }
+  .prop-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; color: var(--gold); font-weight: 400; margin-bottom: 0.3rem;
+  }
+  .prop-name { font-size: 0.85rem; font-weight: 500; margin-bottom: 0.2rem; }
+  .prop-loc { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 1rem; }
+  .prop-specs { display: flex; gap: 1.5rem; }
+  .prop-spec { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .prop-spec strong { display: block; font-size: 0.9rem; color: var(--white); margin-bottom: 0.1rem; }
+
+  /* ABOUT */
+  .about { background: var(--near-black); }
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .about-visual {
+    position: relative; height: 500px;
+    background: linear-gradient(145deg, #1c1812 0%, #2a2215 100%);
+    border: 1px solid rgba(201,169,110,0.15);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-visual-inner {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem; color: rgba(201,169,110,0.08); line-height: 1;
+  }
+  .about-badge-float {
+    position: absolute; bottom: 2rem; right: -2rem;
+    background: var(--gold); color: var(--near-black);
+    padding: 1.5rem 2rem; text-align: center;
+  }
+  .about-badge-float .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; font-weight: 300; display: block;
+  }
+  .about-badge-float .lbl { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600; }
+  .about-text p { color: var(--muted); font-size: 0.85rem; line-height: 2; margin-bottom: 1.5rem; }
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .team-card { text-align: center; }
+  .team-avatar {
+    width: 70px; height: 70px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    margin: 0 auto 0.8rem;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; color: var(--near-black); font-weight: 600;
+    border: 2px solid var(--gold);
+  }
+  .team-name { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+  .team-role { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    background: #111008;
+    border-top: 1px solid rgba(201,169,110,0.1);
+    border-bottom: 1px solid rgba(201,169,110,0.1);
+  }
+  .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+  .test-card {
+    border: 1px solid rgba(201,169,110,0.12);
+    padding: 2.5rem 2rem; position: relative;
+    transition: border-color 0.3s;
+  }
+  .test-card:hover { border-color: rgba(201,169,110,0.35); }
+  .test-quote {
+    position: absolute; top: -1rem; left: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem; color: var(--gold); line-height: 1; opacity: 0.5;
+  }
+  .test-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; font-style: italic; line-height: 1.8;
+    color: rgba(253,252,250,0.85); margin-bottom: 1.8rem;
+  }
+  .test-stars { color: var(--gold); font-size: 0.7rem; letter-spacing: 0.15em; margin-bottom: 1rem; }
+  .test-author { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+  .test-suburb { font-size: 0.65rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* CONTACT */
+  .contact { background: var(--charcoal); }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; }
+  .contact-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300; margin-bottom: 0.5rem;
+  }
+  .contact-info p { color: var(--muted); font-size: 0.8rem; line-height: 2; margin-bottom: 2rem; }
+  .contact-detail { display: flex; flex-direction: column; gap: 1.2rem; }
+  .c-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .c-icon {
+    width: 36px; height: 36px; border: 1px solid rgba(201,169,110,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 0.8rem; flex-shrink: 0;
+  }
+  .c-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
+  .c-val { font-size: 0.82rem; color: var(--white); }
+  .form-group { margin-bottom: 1.4rem; }
+  .form-group label {
+    display: block; font-size: 0.6rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1); color: var(--white);
+    padding: 0.85rem 1rem; font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem; outline: none; transition: border-color 0.2s;
+    appearance: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--gold);
+  }
+  .form-group textarea { height: 120px; resize: none; }
+  .form-group select option { background: var(--charcoal); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--near-black);
+    border-top: 1px solid rgba(201,169,110,0.15);
+    padding: 3rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--gold); letter-spacing: 0.06em;
+  }
+  .footer-logo span { color: var(--white); font-weight: 300; }
+  .footer-copy { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links, .hero-stats { display: none; }
+    section, .hero { padding: 5rem 1.5rem; }
+    .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .about-badge-float { right: 0; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .hero h1 { font-size: 2.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">AGENCY<span> HQ</span></a>
+  <ul class="nav-links">
+    <li><a href="#properties">Properties</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Enquire Now</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-badge">Melbourne's Premier Rental Agency</div>
+  <h1>Find Your <em>Perfect</em><br>Rental Home</h1>
+  <p class="hero-sub">Curated rental properties across Point Cook, Tarneit, Werribee and Melbourne's finest suburbs. Exceptional service. Uncompromising standards.</p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="document.getElementById('properties').scrollIntoView({behavior:'smooth'})">View Properties</button>
+    <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book an Inspection</button>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">320+</div>
+      <div class="stat-label">Properties Managed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">Occupancy Rate</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">12+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPERTIES -->
+<section class="properties" id="properties">
+  <div class="section-tag">Available Now</div>
+  <div class="section-title">Featured <em>Rental</em> Properties</div>
+  <div class="divider"></div>
+  <div class="prop-filter">
+    <button class="filter-btn active">All Suburbs</button>
+    <button class="filter-btn">Point Cook</button>
+    <button class="filter-btn">Tarneit</button>
+    <button class="filter-btn">Werribee</button>
+    <button class="filter-btn">Truganina</button>
+  </div>
+  <div class="prop-grid">
+    <div class="prop-card">
+      <div class="prop-img" style="background:linear-gradient(135deg,#1e1a12,#2a2215);">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none"><path d="M10 40L40 15L70 40V70H52V52H28V70H10V40Z" fill="rgba(201,169,110,0.12)" stroke="rgba(201,169,110,0.2)" stroke-width="1.5"/></svg>
+      </div>
+      <div class="prop-tag">For Rent</div>
+      <div class="prop-body">
+        <div class="prop-price">$620 / week</div>
+        <div class="prop-name">Meridian Residence</div>
+        <div class="prop-loc">📍 Point Cook, VIC 3030</div>
+        <div class="prop-specs">
+          <div class="prop-spec"><strong>4</strong>Beds</div>
+          <div class="prop-spec"><strong>2</strong>Baths</div>
+          <div class="prop-spec"><strong>2</strong>Cars</div>
+          <div class="prop-spec"><strong>620m²</strong>Land</div>
+        </div>
+      </div>
+    </div>
+    <div class="prop-card">
+      <div class="prop-img" style="background:linear-gradient(135deg,#121a1e,#152022);">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none"><rect x="12" y="25" width="56" height="45" rx="1" fill="rgba(201,169,110,0.08)" stroke="rgba(201,169,110,0.2)" stroke-width="1.5"/><rect x="25" y="10" width="30" height="20" rx="1" fill="rgba(201,169,110,0.06)" stroke="rgba(201,169,110,0.15)" stroke-width="1.5"/></svg>
+      </div>
+      <div class="prop-tag">For Rent</div>
+      <div class="prop-body">
+        <div class="prop-price">$480 / week</div>
+        <div class="prop-name">Elara Townhouse</div>
+        <div class="prop-loc">📍 Tarneit, VIC 3029</div>
+        <div class="prop-specs">
+          <div class="prop-spec"><strong>3</strong>Beds</div>
+          <div class="prop-spec"><strong>2</strong>Baths</div>
+          <div class="prop-spec"><strong>1</strong>Car</div>
+          <div class="prop-spec"><strong>310m²</strong>Land</div>
+        </div>
+      </div>
+    </div>
+    <div class="prop-card">
+      <div class="prop-img" style="background:linear-gradient(135deg,#1a121a,#22152a);">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="35" r="20" fill="rgba(201,169,110,0.06)" stroke="rgba(201,169,110,0.2)" stroke-width="1.5"/><rect x="20" y="50" width="40" height="20" rx="1" fill="rgba(201,169,110,0.08)" stroke="rgba(201,169,110,0.15)" stroke-width="1.5"/></svg>
+      </div>
+      <div class="prop-tag">For Rent</div>
+      <div class="prop-body">
+        <div class="prop-price">$550 / week</div>
+        <div class="prop-name">Harlow Estate</div>
+        <div class="prop-loc">📍 Hoppers Crossing, VIC 3029</div>
+        <div class="prop-specs">
+          <div class="prop-spec"><strong>4</strong>Beds</div>
+          <div class="prop-spec"><strong>2</strong>Baths</div>
+          <div class="prop-spec"><strong>2</strong>Cars</div>
+          <div class="prop-spec"><strong>510m²</strong>Land</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:3rem;">
+    <button class="btn-outline" style="margin:0 auto;">View All Properties</button>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-visual">
+      <div class="about-visual-inner">HQ</div>
+      <div class="about-badge-float">
+        <span class="num">2012</span>
+        <span class="lbl">Est. Melbourne</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-tag">Who We Are</div>
+      <div class="section-title">Melbourne's Most<br><em>Trusted</em> Agency</div>
+      <div class="divider"></div>
+      <p>Agency HQ Victoria is a boutique real estate agency specialising in Melbourne's western growth corridors. We combine local expertise with a white-glove approach to property management — ensuring every tenant and landlord receives a truly premium experience.</p>
+      <p>Our dedicated team operates across Point Cook, Tarneit, Truganina, Werribee and surrounding suburbs, bringing together fresh ideas and deep industry knowledge to deliver outstanding results.</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">JM</div>
+          <div class="team-name">James Mitchell</div>
+          <div class="team-role">Principal</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">SC</div>
+          <div class="team-name">Sarah Chen</div>
+          <div class="team-role">Senior PM</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">RP</div>
+          <div class="team-name">Raj Patel</div>
+          <div class="team-role">Leasing Agent</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div style="text-align:center; max-width:500px; margin:0 auto 4rem;">
+    <div class="section-tag">Client Stories</div>
+    <div class="section-title">What Our <em>Tenants</em> Say</div>
+    <div class="divider" style="margin:1.5rem auto 0;"></div>
+  </div>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-quote">"</div>
+      <div class="test-text">Agency HQ made our move to Point Cook completely seamless. The team was responsive, professional, and genuinely cared about finding us the right home.</div>
+      <div class="test-stars">★★★★★</div>
+      <div class="test-author">Priya & Arjun S.</div>
+      <div class="test-suburb">Point Cook</div>
+    </div>
+    <div class="test-card">
+      <div class="test-quote">"</div>
+      <div class="test-text">We've rented through several agencies over the years. Agency HQ stands in a class of their own — prompt maintenance, clear communication, zero stress.</div>
+      <div class="test-stars">★★★★★</div>
+      <div class="test-author">Michael T.</div>
+      <div class="test-suburb">Tarneit</div>
+    </div>
+    <div class="test-card">
+      <div class="test-quote">"</div>
+      <div class="test-text">From inspection to move-in day, every step was handled with care and efficiency. I wouldn't rent through anyone else in the western suburbs.</div>
+      <div class="test-stars">★★★★★</div>
+      <div class="test-author">Emma L.</div>
+      <div class="test-suburb">Werribee</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-tag">Get In Touch</div>
+      <h3>Let's Find Your<br><em style="font-family:'Cormorant Garamond',serif; color:var(--gold);">Next Home</em></h3>
+      <div class="divider"></div>
+      <p>Whether you're looking to rent, enquire about a property, or speak with our property management team — we're here to help. Reach out and one of our specialists will be in touch within 24 hours.</p>
+      <div class="contact-detail">
+        <div class="c-item">
+          <div class="c-icon">📞</div>
+          <div>
+            <div class="c-label">Phone</div>
+            <div class="c-val">03 9741 1000</div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">✉</div>
+          <div>
+            <div class="c-label">Email</div>
+            <div class="c-val">hello@agencyhq.net.au</div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📍</div>
+          <div>
+            <div class="c-label">Office</div>
+            <div class="c-val">Suite 315 / 111 Overton Road, Williams Landing VIC 3027</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="James">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Mitchell">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="04xx xxx xxx">
+      </div>
+      <div class="form-group">
+        <label>I'm Interested In</label>
+        <select>
+          <option>Renting a property</option>
+          <option>Property management</option>
+          <option>General enquiry</option>
+          <option>Booking an inspection</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell us what you're looking for…"></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%; padding:1.1rem;" onclick="alert('Thank you! We\'ll be in touch within 24 hours.')">Send Enquiry</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">AGENCY<span> HQ</span> Victoria</div>
+  <div class="footer-copy">© 2025 Agency HQ Victoria. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Instagram</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
